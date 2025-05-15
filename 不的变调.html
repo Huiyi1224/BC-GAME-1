@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"不"的变调规则与练习</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f5f9fc;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+        .rule-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .rule-card {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .tone-mark {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .tone1 { background-color: #f9e79f; color: #d35400; } /* 黄色 */
+        .tone2 { background-color: #aed6f1; color: #2874a6; } /* 蓝色 */
+        .tone3 { background-color: #abebc6; color: #1e8449; } /* 绿色 */
+        .tone4 { background-color: #f5b7b1; color: #c0392b; } /* 红色 */
+        .tone0 { background-color: #e8daef; color: #6c3483; } /* 紫色-轻声 */
+        
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        .question:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .option {
+            padding: 12px;
+            background-color: #eaf2f8;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 16px;
+        }
+        .option:hover {
+            background-color: #d4e6f1;
+            transform: translateY(-2px);
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fef9e7;
+            border-radius: 6px;
+            display: none;
+            border-left: 3px solid #f1c40f;
+        }
+        .correct {
+            background-color: #abebc6 !important;
+            color: #1e8449;
+        }
+        .incorrect {
+            background-color: #f5b7b1 !important;
+            color: #c0392b;
+        }
+        .highlight {
+            background-color: #fffde7;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .section-title {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+            color: #2980b9;
+            margin-top: 40px;
+            margin-bottom: 25px;
+        }
+        .tip-box {
+            background-color: #e8f8f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border-left: 5px solid #1abc9c;
+        }
+        .tip-title {
+            font-weight: bold;
+            color: #16a085;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .tab {
+            display: inline-block;
+            margin-left: 40px;
+        }
+        @media (max-width: 600px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>"不"字的变调规则与练习</h1>
+        
+        <div class="rule-section">
+            <h2>📚 变调规则详解</h2>
+            
+            <div class="rule-card">
+                <div class="tone-mark tone4">bù</div>
+                <div>
+                    <h3>原调（去声）</h3>
+                    <p>在以下情况读 <span class="highlight">bù</span>：</p>
+                    <ul>
+                        <li>单用或句末：<span class="highlight">"不！我绝不！"</span></li>
+                        <li>后接第一、二、三声字：<span class="highlight">不好(bù hǎo)、不能(bù néng)、不说(bù shuō)</span></li>
+                        <li>在词语中间：<span class="highlight">看不见(bù jiàn)</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="rule-card">
+                <div class="tone-mark tone2">bú</div>
+                <div>
+                    <h3>变调（阳平）</h3>
+                    <p>仅在后接<span class="highlight">第四声字</span>时读 <span class="highlight">bú</span>：</p>
+                    <ul>
+                        <li><span class="highlight">不要(bú yào)、不是(bú shì)、不对(bú duì)</span></li>
+                        <li>记忆口诀：<span class="highlight">"四声来临要变阳"</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="rule-card">
+                <div class="tone-mark tone0">bu</div>
+                <div>
+                    <h3>轻声</h3>
+                    <p>在以下情况读 <span class="highlight">bu</span>（轻短）</p>
+                    <ul>
+                        <li>夹在重叠词中：<span class="highlight">去不去(bu)、好不好(bu)</span></li>
+                        <li>动词补语中：<span class="highlight">看不清(bu)、打不开(bu)</span></li>
+                        <li>固定搭配：<span class="highlight">了不起(bu qǐ)</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tip-box">
+            <div class="tip-title">💡 记忆技巧</div>
+            <p>1. 先看"不"后面字的声调 → 判断是否第四声</p>
+            <p>2. 再看位置 → 是否在词语中间或重叠结构中</p>
+            <p>3. 特殊句式：强调句中的"不"永远读原调 <span class="highlight">bù</span></p>
+        </div>
+        
+        <h2 class="section-title">🔍 分层练习题（15题）</h2>
+        
+        <h3>基础变调</h3>
+        <div class="question" id="q1">
+            <div class="question-text">1. 不对（ ）</div>
+            <div class="options">
+                <div class="option" data-answer="A">A. bú duì</div>
+                <div class="option" data-answer="B">B. bù duì</div>
+            </div>
+            <div class="explanation">
+                <strong>✅ 正确答案：A. bú duì</strong><br>
+                规则："对"是第四声（duì），触发变调 → bú
+            </div>
+        </div>
+        
+        <div class="question" id="q2">
+            <div class="question-text">2. 不行（ ）</div>
+            <div class="options">
+                <div class="option" data-answer="A">A. bú xíng</div>
+                <div class="option" data-answer="B">B. bù xíng</div>
+            </div>
+            <div class="explanation">
+                <strong>✅ 正确答案：B. bù xíng</strong><br>
+                规则："行"是第二声（xíng）→ 保持原调 bù
+            </div>
+        </div>
+        
+        <div class="question" id="q3">
+            <div class="question-text">3. 不要（ ）</div>
+            <div class="options">
+                <div class="option" data-answer="A">A. bú yào</div>
+                <div class="option" data-answer="B">B. bù yào</div>
+            </div>
+            <div class="explanation">
+                <strong>✅ 正确答案：A. bú yào</strong><br>
+                规则："要"是第四声（yào）→ 必须变调 bú
+            </div>
+        </div>
+        
+        <h3>轻声专项</h3>
+        <div class="question" id="q4">
+            <div class="question-text">4. 去不去（ ）</div>
+            <div class="options">
+                <div class="option" data-answer="A">A. qù bu qù</div>
+                <div class="option" data-answer="B">B. qù bù qù</div>
+            </div>
+            <div class="explanation">
+                <strong>✅ 正确答案：A. qù bu qù</strong><br>
+                规则：夹在重叠动词中 → 读轻声 bu
+            </div>
+        </div>
+        
+        <div class="question" id="q5">
+            <div class="question-text">5. 看不清（ ）</div>
+            <div class="options">
+                <div class="option" data-answer="A">A. kàn bu qīng</div>
+                <div class="option" data-answer="B">B. kàn bù qīng</div>
+            </div>
+            <div class="explanation">
+                <strong>✅ 正确答案：A. kàn bu qīng</strong><br>
+                规则：动词补语中间 → 读轻声 bu
+            </div>
+        </div>
+        
+        <h3>易错辨析</h3>
+        <div class="question" id="q6">
+            <div class="question-text">6. 不但（ ）</div>
+            <div class="options">
+                <div class="option" data-answer="A">A. bú dàn</div>
+                <div class="option" data-answer="B">B. bù dàn</div>
+            </div>
+            <div class="explanation">
+                <strong>✅ 正确答案：A. bú dàn</strong><br>
+                易错点："但"是第四声（dàn）→ 容易忽略变调
+            </div>
+        </div>
+        
+        <div class="question" id="q7">
+            <div class="question-text">7. 了不起（ ）</div>
+            <div class="options">
+                <div class="option" data-answer="A">A. liǎo bù qǐ</div>
+                <div class="option" data-answer="B">B. liǎo bu qǐ</div>
+            </div>
+            <div class="explanation">
+                <strong>✅ 正确答案：B. liǎo bu qǐ</strong><br>
+                规则：固定搭配中 → 读轻声 bu
+            </div>
+        </div>
+        
+        <h3>综合应用</h3>
+        <div class="question" id="q8">
+            <div class="question-text">8. "不！我绝不答应！"中两个"不"分别读：</div>
+            <div class="options">
+                <div class="option" data-answer="A">A. bù / bù</div>
+                <div class="option" data-answer="B">B. bú / bù</div>
+            </div>
+            <div class="explanation">
+                <strong>✅ 正确答案：A. bù / bù</strong><br>
+                规则：强调句中所有"不"都读原调 bù
+            </div>
+        </div>
+        
+        <div class="question" id="q9">
+            <div class="question-text">9. 美不美（ ）</div>
+            <div class="options">
+                <div class="option" data-answer="A">A. měi bu měi</div>
+                <div class="option" data-answer="B">B. měi bù měi</div>
+            </div>
+            <div class="explanation">
+                <strong>✅ 正确答案：A. měi bu měi</strong><br>
+                规则：形容词重叠中 → 读轻声 bu
+            </div>
+        </div>
+        
+        <div class="question" id="q10">
+            <div class="question-text">10. 不三不四（ ）</div>
+            <div class="options">
+                <div class="option" data-answer="A">A. bù sān bú sì</div>
+                <div class="option" data-answer="B">B. bú sān bù sì</div>
+            </div>
+            <div class="explanation">
+                <strong>✅ 正确答案：A. bù sān bú sì</strong><br>
+                规则：<br>
+                - "三"第一声 → bù<br>
+                - "四"第四声 → bú
+            </div>
+        </div>
+        
+        <div class="tip-box">
+            <div class="tip-title">📊 错题统计与分析</div>
+            <p id="score-display">完成 0/10 题 | 正确率: 0%</p>
+            <div id="wrong-notes" style="display:none">
+                <p>✍️ 你的易错类型：</p>
+                <ul id="wrong-list"></ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 正确答案映射
+        const correctAnswers = {
+            q1: "A", q2: "B", q3: "A", q4: "A", q5: "A",
+            q6: "A", q7: "B", q8: "A", q9: "A", q10: "A"
+        };
+        
+        // 错题统计
+        let totalAnswered = 0;
+        let correctCount = 0;
+        const wrongTypes = {
+            "该变未变": 0,
+            "不该变却变": 0,
+            "轻声错误": 0
+        };
+        
+        // 为每个选项添加点击事件
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const question = this.closest('.question');
+                const questionId = question.id;
+                const selectedAnswer = this.getAttribute('data-answer');
+                const correctAnswer = correctAnswers[questionId];
+                
+                // 防止重复答题
+                if (question.dataset.answered) return;
+                question.dataset.answered = "true";
+                totalAnswered++;
+                
+                // 样式变化
+                question.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                });
+                
+                if (selectedAnswer === correctAnswer) {
+                    this.classList.add('correct');
+                    correctCount++;
+                } else {
+                    this.classList.add('incorrect');
+                    question.querySelector(`.option[data-answer="${correctAnswer}"]`).classList.add('correct');
+                    
+                    // 记录错题类型
+                    if (questionId === 'q1' || questionId === 'q3' || questionId === 'q6') {
+                        wrongTypes["该变未变"]++;
+                    } else if (questionId === 'q2') {
+                        wrongTypes["不该变却变"]++;
+                    } else {
+                        wrongTypes["轻声错误"]++;
+                    }
+                }
+                
+                // 显示解释
+                question.querySelector('.explanation').style.display = 'block';
+                
+                // 更新统计
+                updateScore();
+            });
+        });
+        
+        function updateScore() {
+            const scoreDisplay = document.getElementById('score-display');
+            scoreDisplay.textContent = `完成 ${totalAnswered}/10 题 | 正确率: ${Math.round(correctCount/totalAnswered*100)}%`;
+            
+            // 显示错题分析
+            if (totalAnswered > 0 && correctCount < totalAnswered) {
+                const wrongList = document.getElementById('wrong-list');
+                wrongList.innerHTML = '';
+                
+                for (const [type, count] of Object.entries(wrongTypes)) {
+                    if (count > 0) {
+                        const li = document.createElement('li');
+                        li.textContent = `${type}: ${count}题`;
+                        wrongList.appendChild(li);
+                    }
+                }
+                
+                document.getElementById('wrong-notes').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

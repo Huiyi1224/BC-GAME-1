@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mario 爆金币标点符号游戏 - 增强版</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            touch-action: manipulation;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #5C94FC 0%, #5C94FC 60%, #D8A028 60%, #D8A028 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* 背景元素 */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            z-index: 1;
+            animation: cloudMove linear infinite;
+        }
+        
+        .brick {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" fill="%23C83C29"/><rect x="0" y="0" width="40" height="5" fill="%23E84D3D"/><rect x="0" y="5" width="5" height="30" fill="%23E84D3D"/></svg>');
+            bottom: 15%;
+            left: 10%;
+            z-index: 2;
+        }
+        
+        .pipe {
+            position: absolute;
+            width: 80px;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="100"><rect width="80" height="100" fill="%2337A42A"/><rect x="0" y="0" width="80" height="20" fill="%234BC63C"/><rect x="0" y="20" width="10" height="80" fill="%234BC63C"/></svg>');
+            bottom: 15%;
+            right: 10%;
+            z-index: 2;
+        }
+
+        @keyframes cloudMove {
+            from { transform: translateX(-150px); }
+            to { transform: translateX(calc(100vw + 150px)); }
+        }
+        
+        .game-container {
+            width: 95%;
+            max-width: 500px;
+            height: 80vh;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 15%;
+            min-height: 80px;
+            background-color: #D8A028;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="%23D8A028"/><path d="M0,20 Q25,0 50,20 T100,20" fill="none" stroke="%23B58923" stroke-width="3"/></svg>');
+            background-size: 100px;
+            z-index: 5;
+        }
+        
+        .mario {
+            position: absolute;
+            bottom: 15%;
+            left: 25%;
+            width: 20%;
+            max-width: 80px;
+            height: 15%;
+            max-height: 100px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100"><rect x="30" y="40" width="20" height="40" fill="%23E52521"/><rect x="20" y="60" width="40" height="20" fill="%2337A42A"/><circle cx="40" cy="30" r="20" fill="%23F7BD2F"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 15;
+            transition: transform 0.1s;
+        }
+        
+        /* 不同马里奥皮肤 */
+        .mario-skin-1 {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100"><rect x="30" y="40" width="20" height="40" fill="%233366FF"/><rect x="20" y="60" width="40" height="20" fill="%23FF33CC"/><circle cx="40" cy="30" r="20" fill="%23FF9933"/></svg>');
+        }
+        
+        .mario-skin-2 {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100"><rect x="30" y="40" width="20" height="40" fill="%2333CC33"/><rect x="20" y="60" width="40" height="20" fill="%233333FF"/><circle cx="40" cy="30" r="20" fill="%23FF33FF"/></svg>');
+        }
+        
+        .mario-skin-3 {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100"><rect x="30" y="40" width="20" height="40" fill="%23FF33CC"/><rect x="20" y="60" width="40" height="20" fill="%2333CCFF"/><circle cx="40" cy="30" r="20" fill="%23CCFF33"/></svg>');
+        }
+        
+        .question-box {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #F8F8F8;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            z-index: 20;
+        }
+        
+        .question {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .option {
+            padding: 12px;
+            font-size: 1.2rem;
+            background-color: #FF5252;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.1s;
+            box-shadow: 0 3px 0 #C62828;
+            min-height: 50px;
+        }
+        
+        .option:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #C62828;
+        }
+        
+        .timer {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .coins-display {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+        }
+        
+        .coin-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23FFD700"/><circle cx="10" cy="10" r="6" fill="%23FFEB3B"/></svg>');
+            background-size: contain;
+        }
+        
+        .shop-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            background-color: #FFC107;
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #FF9800;
+            transition: all 0.1s;
+            z-index: 20;
+        }
+        
+        .shop-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #FF9800;
+        }
+        
+        .shop {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+            z-index: 30;
+            display: none;
+        }
+        
+        .shop-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .shop-items {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .shop-item {
+            background-color: #F5F5F5;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+        
+        .shop-item:active {
+            transform: translateY(-2px);
+        }
+        
+        .item-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .item-price {
+            color: #FF9800;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .close-shop {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .coin {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25"><circle cx="12.5" cy="12.5" r="10" fill="%23FFD700"/><circle cx="12.5" cy="12.5" r="7" fill="%23FFEB3B"/></svg>');
+            background-size: contain;
+            z-index: 15;
+            animation: coin-spin 1s linear infinite;
+        }
+        
+        @keyframes coin-spin {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(-40px) rotate(360deg); }
+        }
+        
+        .jump {
+            animation: mario-jump 0.5s ease-out;
+        }
+        
+        @keyframes mario-jump {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-100px); }
+            100% { transform: translateY(0); }
+        }
+        
+        .flash {
+            animation: flash 0.3s;
+        }
+        
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .shake {
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        /* 排行榜样式 */
+        .leaderboard {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+            z-index: 30;
+            display: none;
+        }
+        
+        .leaderboard-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .leaderboard-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .close-leaderboard {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        /* 多人对战模式 */
+        .multiplayer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+            z-index: 30;
+            display: none;
+        }
+        
+        .multiplayer-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .player-list {
+            margin-bottom: 20px;
+        }
+        
+        .player-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .close-multiplayer {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        /* 皮肤商店 */
+        .skin-shop {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+            z-index: 30;
+            display: none;
+        }
+        
+        .skin-shop-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .skin-items {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .skin-item {
+            background-color: #F5F5F5;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+        
+        .skin-item:active {
+            transform: translateY(-2px);
+        }
+        
+        .skin-preview {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 10px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .skin-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .skin-price {
+            color: #FF9800;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .close-skin-shop {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 400px) {
+            .question {
+                font-size: 1.2rem;
+            }
+            .option {
+                font-size: 1rem;
+                min-height: 40px;
+            }
+            .shop-items, .skin-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景元素 -->
+    <div class="cloud" style="width: 80px; height: 40px; top: 15%; left: 10%; animation-duration: 30s;"></div>
+    <div class="cloud" style="width: 120px; height: 60px; top: 25%; left: 50%; animation-duration: 40s;"></div>
+    <div class="cloud" style="width: 60px; height: 30px; top: 20%; left: 80%; animation-duration: 50s;"></div>
+    <div class="brick"></div>
+    <div class="pipe"></div>
+
+    <!-- 游戏主容器 -->
+    <div class="game-container">
+        <div class="ground"></div>
+        <div class="mario" id="mario"></div>
+        
+        <div class="question-box">
+            <div class="timer" id="timer">10秒</div>
+            <div class="question" id="question">请选择正确的标点符号填空：<br>李先生每天早上六点__就去巴刹买菜。</div>
+            <div class="options" id="options">
+                <button class="option">，</button>
+                <button class="option">。</button>
+                <button class="option">？</button>
+                <button class="option">！</button>
+            </div>
+        </div>
+        
+        <div class="coins-display">
+            <div class="coin-icon"></div>
+            <span id="coins">0</span>
+        </div>
+        
+        <button class="shop-button" id="shop-button">商店</button>
+        <button class="shop-button" id="leaderboard-button" style="left: 100px;">排行榜</button>
+        <button class="shop-button" id="multiplayer-button" style="left: 180px;">对战</button>
+        <button class="shop-button" id="skin-shop-button" style="left: 260px;">皮肤</button>
+        
+        <!-- 道具商店 -->
+        <div class="shop" id="shop">
+            <button class="close-shop" id="close-shop">×</button>
+            <div class="shop-title">道具商店</div>
+            <div class="shop-items">
+                <div class="shop-item" data-item="time">
+                    <div class="item-name">+5秒</div>
+                    <div class="item-price">10金币</div>
+                </div>
+                <div class="shop-item" data-item="skip">
+                    <div class="item-name">跳过题目</div>
+                    <div class="item-price">15金币</div>
+                </div>
+                <div class="shop-item" data-item="hint">
+                    <div class="item-name">提示答案</div>
+                    <div class="item-price">20金币</div>
+                </div>
+                <div class="shop-item" data-item="double">
+                    <div class="item-name">双倍金币</div>
+                    <div class="item-price">30金币</div>
+                </div>
+                <div class="shop-item" data-item="freeze">
+                    <div class="item-name">冻结时间</div>
+                    <div class="item-price">25金币</div>
+                </div>
+                <div class="shop-item" data-item="auto">
+                    <div class="item-name">自动答题</div>
+                    <div class="item-price">40金币</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 排行榜 -->
+        <div class="leaderboard" id="leaderboard">
+            <button class="close-leaderboard" id="close-leaderboard">×</button>
+            <div class="leaderboard-title">排行榜</div>
+            <div class="leaderboard-list" id="leaderboard-list">
+                <!-- 排行榜内容将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <!-- 多人对战模式 -->
+        <div class="multiplayer" id="multiplayer">
+            <button class="close-multiplayer" id="close-multiplayer">×</button>
+            <div class="multiplayer-title">多人对战</div>
+            <div class="player-list" id="player-list">
+                <!-- 玩家列表内容将通过JS动态生成 -->
+            </div>
+            <button id="start-battle" style="padding: 10px; background: #4CAF50; color: white; border: none; border-radius: 5px; width: 100%;">开始对战</button>
+        </div>
+        
+        <!-- 皮肤商店 -->
+        <div class="skin-shop" id="skin-shop">
+            <button class="close-skin-shop" id="close-skin-shop">×</button>
+            <div class="skin-shop-title">皮肤商店</div>
+            <div class="skin-items">
+                <div class="skin-item" data-skin="0">
+                    <div class="skin-preview" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 80 100\"><rect x=\"30\" y=\"40\" width=\"20\" height=\"40\" fill=\"%23E52521\"/><rect x=\"20\" y=\"60\" width=\"40\" height=\"20\" fill=\"%2337A42A\"/><circle cx=\"40\" cy=\"30\" r=\"20\" fill=\"%23F7BD2F\"/></svg>')"></div>
+                    <div class="skin-name">经典马里奥</div>
+                    <div class="skin-price">已解锁</div>
+                </div>
+                <div class="skin-item" data-skin="1">
+                    <div class="skin-preview" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 80 100\">
